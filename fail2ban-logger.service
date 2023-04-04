@@ -1,0 +1,12 @@
+[Unit]
+Description=Fail2Ban Logger Service
+After=fail2ban.service
+
+[Service]
+Type=simple
+ExecStart=node /usr/bin/fail2ban-logger/index.js
+Restart=on-failure
+RestartPreventExitStatus=0 255
+
+[Install]
+WantedBy=multi-user.target
