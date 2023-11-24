@@ -1,13 +1,9 @@
 const { spawn } = require("child_process");
-const { WebhookClient } = require("discord.js");
-const { getConfig } = require("raraph84-lib");
-const Config = getConfig(__dirname);
-
-const webhook = new WebhookClient({ url: Config.webhook });
+const Config = require("./config.json");
 
 /**
- * @param {String} command 
- * @returns {Promise<String>} 
+ * @param {string} command 
+ * @returns {Promise<string>} 
  */
 const exec = (command) => new Promise((resolve, reject) => {
     const proc = spawn("bash", ["-c", command]);
@@ -26,7 +22,7 @@ const listBans = async () => {
 }
 
 const send = async (message) => {
-    await webhook.send(message);
+    await fetch(Config.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: message }) });
 }
 
 listBans().then((bans) => {
