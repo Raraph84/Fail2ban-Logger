@@ -5,7 +5,7 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-if [ -f "/usr/local/bin/fail2ban-logger" ] && [ -f "/usr/bin/fail2ban-logger" ]; then
+if [ -d "/usr/local/bin/fail2ban-logger" ] && [ -d "/usr/bin/fail2ban-logger" ]; then
     echo "Fail2ban-Logger is already installed"
     exit 1
 fi
