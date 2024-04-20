@@ -4,7 +4,7 @@ After=fail2ban.service
 
 [Service]
 Type=simple
-ExecStart=node /usr/bin/fail2ban-logger/index.js
+ExecStart=node /usr/local/bin/fail2ban-logger/index.js
 Restart=on-failure
 RestartPreventExitStatus=0 255
 
