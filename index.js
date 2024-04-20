@@ -1,5 +1,5 @@
 const { spawn } = require("child_process");
-const Config = require("./config.json");
+const config = require("./config.json");
 
 /**
  * @param {string} command 
@@ -21,9 +21,7 @@ const listBans = async () => {
     return JSON.parse(bans.replace(/'/g, '"'));
 }
 
-const send = async (message) => {
-    await fetch(Config.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: message }) });
-}
+const send = (message) => fetch(config.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: message }) });
 
 listBans().then((bans) => {
 
@@ -34,11 +32,11 @@ listBans().then((bans) => {
         const bans = await listBans();
 
         bans.filter((ban) => !lastBans.includes(ban)).forEach((ban) => {
-            send("L'adresse ip `" + ban + "` a été bannie du serveur " + Config.serverName + ".");
+            send("L'adresse ip `" + ban + "` a été bannie du serveur " + config.serverName + ".");
         });
 
         lastBans.filter((ban) => !bans.includes(ban)).forEach((ban) => {
-            send("L'adresse ip `" + ban + "` a été débannie du serveur " + Config.serverName + ".");
+            send("L'adresse ip `" + ban + "` a été débannie du serveur " + config.serverName + ".");
         });
 
         lastBans = bans;
