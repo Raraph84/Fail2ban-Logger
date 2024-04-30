@@ -4,7 +4,7 @@ const config = require("./config.json");
 const send = (message) => fetch(config.webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: message }) });
 
 const listen = () => {
-    const proc = spawn("tail", ["-n", "0", "-f", "/var/log/fail2ban.log"]);
+    const proc = spawn("tail", ["-n", "0", "-F", "/var/log/fail2ban.log"]);
     let output = "";
     const onData = (data) => {
         output += data;
